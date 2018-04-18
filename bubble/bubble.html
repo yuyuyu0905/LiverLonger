@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+ 
+  <head>
+		<meta charset="utf-8">
+		<title>Interactive Bubble Chart</title>
+			
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="style.css">
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+	 
+	</head>
+ 
+	<body>
+		<!--<div id="container">
+			<div id="header">
+			<h1>bubble chart</h1>
+			</div>
+			
+			<div id="headerBand">
+			</br>
+			</div>
+			<div id="charts">-->
+			
+				<div id="bubbleContainer">
+				<!--<h2>Risk Assessment Ratings (Dummy Data)</h2>-->
+				<div id="overallRatings" class="btn-group btn-info top-btn" data-toggle="buttons">
+				  <label class="btn active ratingBtn" id="reset">
+					<input type="radio" name="options">Reset</label>
+				   <label class="btn ratingBtn" id="riskCategory1">
+					<input type="radio" name="options">Risk After 90 days</label>
+				  <label class="btn ratingBtn" id="riskCategory2">
+					<input type="radio" name="options">Risk After 180 days</label>
+				  <!--<label class="btn ratingBtn" id="ratingCategory">
+					<input type="radio" name="options">Both Categories</label>-->
+				</div>
+				<div id="RiskCycle" class="btn-group btn-default top-btn" data-toggle="buttons">
+				  <label class="btn cycleBtn" id="liver1">
+					<input type="radio" name="options">liver1</label>
+				   <label class="btn active cycleBtn" id="liver2">
+					<input type="radio" name="options">liver2</label>
+					<label class="btn cycleBtn" id="liver3">
+					<input type="radio" name="options">liver3</label>
+				   <label class="btn active cycleBtn" id="liver4">
+					<input type="radio" name="options">liver4</label>
+					<label class="btn cycleBtn" id="liver5">
+					<input type="radio" name="options">liver5</label>
+				   <label class="btn active cycleBtn" id="liver6">
+					<input type="radio" name="options">liver6</label>
+					<label class="btn cycleBtn" id="liver7">
+					<input type="radio" name="options">liver7</label>
+				   <label class="btn active cycleBtn" id="liver8">
+					<input type="radio" name="options">liver8</label>
+				</div>
+				<div id="bubbleChart">
+				</div>
+				</div>
+		</div>
+		<script src="bubbles.js"></script>
+  </body>
+ 
+</html>
