@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Liver Longer</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://bl.ocks.org/syntagmatic/raw/3341641/render-queue.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <script src="https://use.fontawesome.com/13bd6b8e57.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <link href="css/stylesheet.css" rel="stylesheet">
+    <link href="css/tooltip.css" rel="stylesheet">
+    <link href="css/paralell.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <body id="page-top">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">Liver Longer</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fa fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#chart1">Part 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#chart2">Part 2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#chart3">Part 3</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Intro Header -->
+        <header class="masthead">
+            <div class="intro-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <h1 class="brand-heading">Main Topic</h1>
+                            <p class="intro-text">This website offers knowledges about liver transplantation
+                                <br>Created by team WeLoveInfoVis.</p>
+                            <a href="#chart1" class="btn btn-circle js-scroll-trigger">
+                  <i class="fa fa-angle-double-down animated"></i>
+                </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section id="chart1" class="content-section text-center">
+            <div class="mx-auto">
+                <div>
+                    <h2>Topic 1</h2>
+                    <p style="text-align: left;margin: 10px 20px; font-size: 15px"> Topic 1</p>
+                    <form>
+                        <label>
+                            <input type="radio" name="mode" value="grouped"> input1</label>
+                        <br>
+                        <label>
+                            <input type="radio" name="mode" value="stacked" checked> input2</label>
+                    </form>
+                    <span>Sort By:</span>
+                    <button type="button" class="btn btn-primary" id="start_btn" disabled>Button</button>
+                    <button type="button" class="btn btn-primary" id="mid_btn">Button</button>
+                    <button type="button" class="btn btn-primary" id="alpha_btn">Button</button>
+                </div>
+                <div class="svg-container">
+                    It's a DIV. Insert your stuff here.
+                    <svg class="svg-content" id="svg_1" preserveAspectRatio="xMinYMin meet" viewBox="-150 0 1200 600"></svg>
+                </div>
+                <div id="tooltip" class="hidden">
+                    <p><strong>Salary</strong></p>
+                    <p><span id="value">0</span></p>
+                </div>
+            </div>
+        </section>
+        <section id="chart2" class="content-section text-center" style="background-color: #808080">
+            <div class="mx-auto svg-container">
+                <h2>Topic 2</h2>
+                <p style="text-align: left;  margin: 10px 20px;font-size: 15px">Topic 2</p>
+                <center>
+                    <div class="svg-container" id="svg_2">
+                    </div>
+                    <div id="table_div">It's a DIV. Insert your stuff here</div>
+                </center>
+            </div>
+        </section>
+        <section id="chart3" class="content-section text-center">
+            <div class="mx-auto">
+                <h2>Topic 3</h2>
+                <p style="text-align: left; margin: 10px 20px;font-size: 15px"> Topic 3</p>
+                <form>
+                    <label>
+                        <input type="radio" name="input_value" value="Stage1" checked> Stage 1</label>
+                    <label>
+                        <input type="radio" name="input_value" value="Stage2"> Stage 2</label>
+                    <label>
+                        <input type="radio" name="input_value" value="Stage3"> Stage 3</label>
+                    <label>
+                        <input type="radio" name="input_value" value="WaitingTime"> Waiting time</label>
+
+                </form>
+                <span>Group By: </span>
+                <button class="btn btn-info" , align-itself="center" id="button-state" ,onclick=byState()>State</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-info" , id="button-region">Region</button>
+            </div>
+            <div class="row">
+                <div class="mx-auto svg-container" , id="div-geo" , style="overflow-x: auto">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto" , id="div-barchart" , style="overflow-x: auto">
+                </div>
+            </div>
+        </section>
+        <section id="info" class="content-section text-center" style="background-color: #000">
+            <div class="mx-auto" style="color: white">
+                <h3>More info</h3>
+                <br>
+                <br>
+            </div>
+        </section>
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        <script src="js/homepage.js"></script>
+        <!--         <script src="js/bar-chart.js"></script> -->
+        <!--         <script src="js/parallel_coordinate.js"></script> -->
+        <script src="js/map.js"></script>
+    </body>
+
+</html>

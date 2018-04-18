@@ -1,0 +1,133 @@
+.parcoords {
+  display: block;
+}
+
+.parcoords svg{
+  font: 10px sans-serif;
+  position: absolute;
+}
+
+.parcoords canvas {
+  opacity: 0.9;
+  pointer-events: none;
+  position: relative;
+}
+
+
+.axis .title {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  transform: rotate(-21deg) translate(-5px,-6px);
+  fill: #222;
+}
+
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+
+.axis .tick text {
+font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  fill: #222;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.axis.manufac_name .tick text,
+.axis.food_group .tick text {
+  opacity: 1;
+}
+
+.axis:hover line,
+.axis:hover path,
+.axis.active line,
+.axis.active path {
+  fill: none;
+  stroke: #222;
+  stroke-width: 1px;
+}
+
+.axis:hover .title {
+  font-weight: bold;
+}
+
+.axis:hover .tick text {
+  opacity: 1;
+}
+
+.axis.active .title {
+  font-weight: bold;
+}
+
+.axis.active .tick text {
+  opacity: 1;
+  font-weight: bold;
+}
+
+.brush .extent {
+  fill-opacity: .3;
+  stroke: #fff;
+  stroke-width: 1px;
+}
+<<<<<<< HEAD
+
+pre {
+  width: 100%;
+  height: 300px;
+  margin: 6px 12px;
+  tab-size: 40;
+  font-size: 10px;
+  overflow: auto;
+}
+
+#table_div {
+    font-size: 10px;
+    width:100%;
+    height: 200px;
+    overflow-y: auto;
+    
+}
+
+=======
+>>>>>>> 5ceed3c... update table
+tbody {
+    font-size: 10px;
+    background-color: #ddd;
+    height: 164px;
+    overflow-y: auto;
+}
+thead {
+    text-align: center;
+}
+th{
+    width: 300px;
+    font-size: 12px;
+}
+table{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    background-color: #aaa;
+    
+}
+
+th, td {
+    padding: 5px;
+}
+tbody tr:hover {background-color: white;}
+tr:nth-child(even) {background-color: #f2f2f2;}
+thead > tr, tbody{
+    display:block;}
+td {
+    width: 300px;
+    text-align: center;
+}
+
+#svg_2 {
+    padding: 20px;
+}
+#chart2 {
+    padding: 25px;
+}
+
