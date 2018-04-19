@@ -145,10 +145,12 @@ d3.json("data/usa2.json", function(error, world) {
         		var ramp = d3.scaleLinear()
         	    .domain([min_value, max_value])
         	    .range([lowColor, highColor]);
+                var rateOrwait = 'Waiting Time: '
         	}else{
         		var ramp = d3.scaleLinear()
         	    .domain([max_value, min_value])
         	    .range([lowColor, highColor]);
+                var rateOrwait = 'Successful Rate: '
         	}
             d3.select('#map_legend').style("display", "inline");
             d3.select('#map_legend_2').style("display", "inline");
@@ -188,7 +190,7 @@ d3.json("data/usa2.json", function(error, world) {
                             .style("left", d3.event.pageX - 100 + "px")
                             .style("top", d3.event.pageY - 100 + "px")
                             .style("display", "inline-block")
-                            .html(d['properties']['NAME'] + "<br>" + "Success Rate: " + d[attr].toLocaleString());
+                            .html(d['properties']['NAME'] + "<br>" + rateOrwait + d[attr].toLocaleString());
                     })
                     .on("mouseout", function(d) {
                         tooltip.style("display", "none");
@@ -242,9 +244,9 @@ d3.json("data/usa2.json", function(error, world) {
                         // bars(colleges);
                     })
                     .on("mousemove", function(d) {
-                        d3.selectAll('.' + d3.select(this)
-                                .attr('class')).style('opacity', 0.9)
-                            .attr('stroke-width', '3px')
+                        d3.selectAll('.' + d3.select(this).attr('class'))
+                            .style('opacity', 0.9)
+                            .attr('stroke-width', '5px')
 
                         tooltip
                             .style("left", d3.event.pageX - 100 + "px")

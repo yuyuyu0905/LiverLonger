@@ -90,14 +90,12 @@ pre {
     
 }
 
-=======
->>>>>>> 5ceed3c... update table
-tbody {
+/*tbody {
     font-size: 10px;
     background-color: #ddd;
     height: 164px;
     overflow-y: auto;
-}
+}*/
 thead {
     text-align: center;
 }
@@ -105,20 +103,18 @@ th{
     width: 300px;
     font-size: 12px;
 }
-table{
+/*table{
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     background-color: #aaa;
     
 }
-
-th, td {
+*/
+/*th, td {
     padding: 5px;
 }
-tbody tr:hover {background-color: white;}
-tr:nth-child(even) {background-color: #f2f2f2;}
 thead > tr, tbody{
-    display:block;}
+    display:block;}*/
 td {
     width: 300px;
     text-align: center;

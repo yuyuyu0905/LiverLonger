@@ -77,14 +77,92 @@
             </div>
 
         </section>
-        <section id="chart2" class="content-section text-center" style="background-color: #808080">
+        <section id="chart2" class="content-section text-center">
             <div class="mx-auto svg-container">
                 <h2>Prediction</h2>
                 <p style="text-align: center;  margin: 10px 10px;font-size: 15px">The ability to predict graft failure or primary nonfunction at liver transplant decision time assists utilization of scarce resource of donor livers, while ensuring that patients who are urgently requiring a liver transplant are prioritized. </p>
                 <center>
                     <div class="svg-container" id="svg_2">
+                         <div class="container">
+        <form>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="text">Method1. Type your data in CSV format. </label>
+                    <textarea class="form-control" id="textarea" name="textarea" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="text">Method2. Upload your CSV file</label>
+                    <br>
+                    <label class="custom-file">
+                        <input type="file" id="file" class="custom-file-input">
+                        <span class="custom-file-control"></span>
+                    </label>
+                </div>
+                <!-- Model Selection -->
+                <div class="form-group col-md-3 offset-md-3">
+                    <label for="modelSelect">Model Select</label>
+                    <select class="form-control" id="modelSelect" name="modelSelect">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Analyze button and Sample Review -->
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <div class="form-row float-sm-right">
+                        <div class="col">
+                            <button type="button" class="btn btn-success float-right" id="sample">Sample Review</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-primary" id="analyze">Analyze</button>
+                        </div>
                     </div>
-                    <div id="table_div">It's a DIV. Insert your stuff here</div>
+                </div>
+            </div>
+        </form>
+    </div>
+                    </div>
+                    <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                                <div id="contentDiv">
+                                    <table id="myTable" class="table-striped">  
+                                        <thead>  
+                                            <tr>  
+                                                <th>#</th>  
+                                                <th>Age</th>  
+                                                <th>Scores</th>
+                                            </tr>  
+                                        </thead>  
+                                        <tbody>  
+                                            <tr>  
+                                                <td>1</td>  
+                                                <td>24</td>  
+                                                <td>93.42</td>
+                                            </tr>  
+                                            <tr>  
+                                                <td>2</td>  
+                                                <td>64</td>  
+                                                <td>95.63</td>
+                                            </tr>  
+                                            <tr>  
+                                                <td>3</td>  
+                                                <td>42</td>  
+                                                <td>91.10</td>
+                                            </tr>  
+                                        </tbody>  
+                                    </table>  
+                                </div>
+                            </div>
+                    </div>
+                  </div>
+                    <div id="table_div"></div>
                 </center>
             </div>
         </section>
