@@ -1,9 +1,36 @@
+var socket = io.connect('http://127.0.0.1:5000');
+socket.on('connect', function() {
+    console.log('connect');
+        socket.emit('analyze', {'data':'hi, fuck you', 'model': 1});
+    });
+
+socket.on('result', function(data) {
+    console.log(data);
+})
+
 function compare(property) {
     return function(a, b) {
         var value1 = a[property];
         var value2 = b[property];
         return value2 - value1;
     }
+}
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
 }
 
 var w = 1250,
@@ -92,8 +119,8 @@ d3.json("data/usa2.json", function(error, world) {
         var region_data = d3.nest()
             .key(function(d) { return 'Region' + d['Region']; })
             .entries(data);
-        console.log(state_data);
-        console.log(region_data);
+        // console.log(state_data);
+        // console.log(region_data);
         var avg_data = d3.nest()
             .key(function(d) { return d['State']; })
             .rollup(function(v) {
@@ -107,7 +134,7 @@ d3.json("data/usa2.json", function(error, world) {
                 };
             })
             .entries(data);
-        console.log(avg_data);
+        // console.log(avg_data);
         var region_avg_data = d3.nest()
             .key(function(d) { return 'Region' + d['Region']; })
             .rollup(function(v) {
@@ -120,7 +147,7 @@ d3.json("data/usa2.json", function(error, world) {
                 };
             })
             .entries(data);
-        console.log(region_avg_data);
+        // console.log(region_avg_data);
 
 
         for (i = 0; i < state_data.length; i++) {
@@ -130,8 +157,8 @@ d3.json("data/usa2.json", function(error, world) {
         for (i = 0; i < region_data.length; i++) {
             region_map[region_data[i].key] = i
         }
-        console.log(state_map);
-        console.log(region_map)
+        // console.log(state_map);
+        // console.log(region_map)
         for (i = 0; i < state_data.length; i++) {
             d3.select('#' + state_data[i]['values'][0]['State'])
                 .attr('class', 'Region' + state_data[i]['values'][0]['Region'])
@@ -270,7 +297,7 @@ d3.json("data/usa2.json", function(error, world) {
         }
         d3.select('#button-state')
             .on('click', function(d) {
-            	console.log(d3.select('input[name="input_value"]:checked').node().value)
+            	// console.log(d3.select('input[name="input_value"]:checked').node().value)
                 byState(d3.select('input[name="input_value"]:checked').node().value)})
         d3.select('#button-region')
             .on('click', function(d) {
