@@ -1,5 +1,5 @@
 var width = 960,
-height = 630;
+height = 530;
  
  
 d3.select("#bubbleChart").append("svg")

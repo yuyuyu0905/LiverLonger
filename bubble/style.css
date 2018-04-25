@@ -64,7 +64,7 @@ p{
  
 #bubbleContainer{
 	width: 960x;
-	height: 850px;
+	height: 550px;
 	border: 1px solid #BFD1D4;
 	border-radius: 10px;
 	margin: 2px;
@@ -144,7 +144,7 @@ circle:hover {
  
 .selected {
 	fill:#3498DB;
-	stroke: black;
+	stroke: #3498DB;
     stroke-width: 2px;
 }
  
@@ -185,3 +185,8 @@ circle:hover {
 	text-align: center;
 	padding-top: 10px;
 }
+
+.active{
+	background-color: black;
+}
+
