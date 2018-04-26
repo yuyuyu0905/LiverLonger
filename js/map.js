@@ -1,12 +1,51 @@
 var socket = io.connect('http://127.0.0.1:5000');
 socket.on('connect', function() {
     console.log('connect');
-        socket.emit('analyze', {'data':'hi, fuck you', 'model': 1});
+        console.log('connect with server at http://127.0.0.1:5000');
     });
 
 socket.on('result', function(data) {
+    console.log('receive the data from server: ');
     console.log(data);
+    deleteRow();
+    addRows(data['data']);
 })
+
+function addRows(elements) {
+    var table = document.getElementById("myTbody");
+    console.log(table.rows.length);
+    for(i=0;i<elements.length;i++){
+        var row = table.insertRow(-1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        cell1.innerHTML = elements[i][0];
+        cell2.innerHTML = elements[i][1];
+        cell3.innerHTML = elements[i][2];
+        cell4.innerHTML = elements[i][3];
+    }
+}
+
+
+function deleteRow() {
+    var table = document.getElementById("myTable");
+    for(i=table.rows.length-1;i>0;i--){
+      table.deleteRow(i);
+    }
+}
+function displayResult(){
+    // var x=document.getElementById("fname").value;
+    console.log(document.getElementById("csvFile").files[0]);
+    var Selected = document.getElementById("csvFile").files[0];
+    var model = document.getElementById("modelSelect").value;
+    var reader = new FileReader();
+    reader.readAsText(Selected);   
+    reader.onload = function(evt){
+        var data = evt.target.result;
+        socket.emit('analyze', {'data':data, 'model':model});
+    }
+}
 
 function compare(property) {
     return function(a, b) {
@@ -52,7 +91,7 @@ var svg2_3 = d3.select('#div-barchart').append('svg')
 var lowColor = '#ffffb2';
 var highColor = '#bd0026';
 var ramp = d3.scaleLinear()
-        .domain([91,95])
+        .domain([95,91])
         .range([lowColor,highColor]);
 
 // svg2_3.append("text")
@@ -65,11 +104,11 @@ var ramp = d3.scaleLinear()
 
 svg2_3.append("text")
       .attr('id', 'rank')
-      .attr("y", h2 + 20)
-      .attr("x",(w / 2 + 30))
+      .attr("y", 0)
+      .attr("x",(420))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Ranks");
+      .text("(%)");
 var path = d3.geoPath()
     .projection(projection);
 
@@ -85,9 +124,6 @@ function bars(data) {
     var div = d3.select("body").append("div").attr("class", "toolTip");
     d3.select('#axis').call(d3.axisBottom(x));
 
-    d3.select('#barchart').attr('width', Math.max(960, 30 * data.length))
-    d3.select('#rank')
-    .transition().duration(1000).attr('x', 30 * data.length / 2 + 30)
 
 }
 d3.json("data/usa2.json", function(error, world) {
@@ -110,6 +146,11 @@ d3.json("data/usa2.json", function(error, world) {
 
 
     d3.csv("data/wage_gap_all.csv", function(error, data) {
+        var legend1 = svg_3.append('g').attr('id','map_legend');
+        var myScale = d3.scaleLinear()
+                          .domain([0, 10])
+                          .range([91, 95])
+        var legend2 = svg_3.append('g').attr('id','map_legend_2');
         var state_map = {}
         var region_map = {}
         var state_data = d3.nest()
@@ -168,17 +209,28 @@ d3.json("data/usa2.json", function(error, world) {
         function byState(attr) {
         	max_value = d3.max(data, function(d) { return d[attr];});
         	min_value = d3.min(data, function(d) { return d[attr];});
+
         	if(attr == "WaitingTime"){
         		var ramp = d3.scaleLinear()
         	    .domain([min_value, max_value])
         	    .range([lowColor, highColor]);
+                var myScale = d3.scaleLinear()
+                          .domain([0, 10])
+                          .range([max_value, min_value]);
                 var rateOrwait = 'Waiting Time: '
+                d3.select('#rank').transition().text('(Days)')
         	}else{
         		var ramp = d3.scaleLinear()
         	    .domain([max_value, min_value])
         	    .range([lowColor, highColor]);
+                var myScale = d3.scaleLinear()
+                          .domain([0, 10])
+                          .range([min_value, max_value]);
                 var rateOrwait = 'Successful Rate: '
+                d3.select('#rank').transition().text('(%)')
         	}
+            legend2.selectAll('text')
+                .text(function(d){return parseInt(myScale(d)).toLocaleString()});
             d3.select('#map_legend').style("display", "inline");
             d3.select('#map_legend_2').style("display", "inline");
             for (i = 0; i < avg_data.length; i++) {
@@ -203,6 +255,8 @@ d3.json("data/usa2.json", function(error, world) {
                             //     return color(i);
                             // })
                             .style('stroke-width', '5px')
+                        d3.selectAll('.' + d3.select(this).attr('class'))
+                            .style('stroke-width', '5px')
                         var current = state_data[state_map[d.properties.abbr]];
                         var current_state = current['key'];
                         var colleges = current['values'];
@@ -217,11 +271,13 @@ d3.json("data/usa2.json", function(error, world) {
                             .style("left", d3.event.pageX - 100 + "px")
                             .style("top", d3.event.pageY - 100 + "px")
                             .style("display", "inline-block")
-                            .html(d['properties']['NAME'] + "<br>" + rateOrwait + d[attr].toLocaleString());
+                            .html(d['properties']['NAME'] + "<br>" + rateOrwait + d[attr].toLocaleString() + "<br>Region: " + d3.select(this).attr('class'));
                     })
                     .on("mouseout", function(d) {
                         tooltip.style("display", "none");
                         d3.select('#' + d3.select(this).attr('id'))
+                            .style('stroke-width', '1px')
+                        d3.selectAll('.' + d3.select(this).attr('class'))
                             .style('stroke-width', '1px')
                     })
                     .style('fill', 'rgb(' + (res-100) + ',' + res + ', ' + res + ')')
@@ -231,78 +287,6 @@ d3.json("data/usa2.json", function(error, world) {
 
 
         var selected = d3.selectAll('input[name="input_value"]').on('click', function(d){byState(d3.select(this).node().value)});
-        function byRegion() {
-            d3.select('#map_legend').style("display", "none");
-            d3.select('#map_legend_2').style("display", "none");
-
-            for (i = 0; i < region_avg_data.length; i++) {
-                res = parseInt((region_avg_data[i]['value']['avg_st'] - 90) / 3 * 255);
-                temp = region_avg_data[i]['value']['avg_st'];
-                temp2 = region_avg_data[i]['key'];
-                var color = d3.scaleOrdinal(d3.schemeCategory20c);
-                d3.selectAll('.' + region_avg_data[i]['key'])
-                    .style('stroke', function(d) {
-                        d['avg_st'] = temp;
-                        d['avg_md'] = avg_data[i]['value']['avg_md'];
-                        d['color'] = 'rgb(' + (res - 100) + ',' + res + ', ' + res + ')'
-                        return 'black'
-                    })
-                    .on("click touchstart", function(d) {
-                        for (i = 0; i < region_avg_data.length; i++) {
-                            d3.selectAll('.' + region_avg_data[i]['key'])
-                                // .style('fill', 'grey')
-                                .style('stroke-width', '1px')
-                                // .transition()
-                        }
-                        d3.selectAll('.' + d3.select(this).attr('class'))
-                            // .style('fill', function(d, i) {
-                            //     return color(i);
-                            // })
-                            .style('stroke-width', '5px')
-                            .style('opacity', 1)
-                            .transition()
-                        var current = region_data[region_map[d3.select(this).attr('class')]];
-                        var current_state = current['key'];
-                        var colleges = current['values'];
-                        colleges.sort(compare('Starting Median Salary'));
-                        // console.log(current_state);
-                        // console.log(colleges);
-                        // console.log(state_data[state_map[d.properties.abbr]]);
-                        // bars(colleges);
-                    })
-                    .on("mousemove", function(d) {
-                        d3.selectAll('.' + d3.select(this).attr('class'))
-                            .style('opacity', 0.9)
-                            .attr('stroke-width', '5px')
-
-                        tooltip
-                            .style("left", d3.event.pageX - 100 + "px")
-                            .style("top", d3.event.pageY - 100 + "px")
-                            .style("display", "inline-block")
-                            .html(d3.select(this).attr('class') + "<br>" + "States: " + d['properties']['NAME'] + "<br>" + "Success Rate: " + d['avg_md']);
-
-
-                    })
-                    .on("mouseout", function(d) {
-                    	console.log(d3.select(this).attr('class'))
-                        d3.selectAll('.' + d3.select(this).attr('class'))
-                            .style('opacity', 1)
-                            // .style('fill', function(d){return d['color']})
-                            .attr('stroke-width', '1px')
-                        tooltip.style("display", "none");
-                    })
-
-
-            }
-        }
-        d3.select('#button-state')
-            .on('click', function(d) {
-            	// console.log(d3.select('input[name="input_value"]:checked').node().value)
-                byState(d3.select('input[name="input_value"]:checked').node().value)})
-        d3.select('#button-region')
-            .on('click', function(d) {
-                byRegion();
-            })
         // console.log(data);
         var x = d3.scaleBand()
             .range([0, w - 40])
@@ -314,24 +298,15 @@ d3.json("data/usa2.json", function(error, world) {
             .domain([0, 60])
             .range([h2, 0]);
 
-        var main = svg2_3.append('g')
-            .attr('transform', 'translate(' + 20 + ',' + 0 + ')')
-
-        // main.append("g")
-        //     .attr('id', 'axis')
-        //     .attr("transform", "translate(0," + (h2) + ")")
-        //     .call(d3.axisBottom(x));
+        // var main = svg2_3.append('g')
+        //     .attr('transform', 'translate(' + 20 + ',' + 0 + ')')
 
 
-        main.append("text")
-            .attr("dy", "1em")
-            .style("text-anchor", "middle")
-            .attr('transform', 'translate(820, 470) rotate(' + 90 + ')');
-        var g = svg_3.append('g').attr('id','map_legend');
-          var myScale = d3.scaleLinear()
-                          .domain([0, 10])
-                          .range([91, 95])
-          g.selectAll('rect')
+        // main.append("text")
+        //     .attr("dy", "1em")
+        //     .style("text-anchor", "middle")
+        //     .attr('transform', 'translate(820, 470) rotate(' + 90 + ')');
+          legend1.selectAll('rect')
             .data([0,1,2,3,4,5,6,7,8,9,10])
             .enter()
             .append('rect')
@@ -343,8 +318,7 @@ d3.json("data/usa2.json", function(error, world) {
               var res = 4.0 * (d / 10) + 91
               return ramp(res);
             })
-          var g = svg_3.append('g').attr('id','map_legend_2');
-          g.selectAll('text')
+          legend2.selectAll('text')
             .data([0,3,7,10])
             .enter()
             .append('text')
@@ -353,7 +327,7 @@ d3.json("data/usa2.json", function(error, world) {
             .attr('y', h - 50)
             .text(function(d){return parseInt(myScale(d)).toLocaleString()});
 
-          g.selectAll('rect')
+          legend2.selectAll('rect')
             .data([0,3,7,10])
             .enter()
             .append('rect')
@@ -362,6 +336,9 @@ d3.json("data/usa2.json", function(error, world) {
             .attr('width', function(d){return 3})
             .attr('height', 24)
             .text(function(d){return parseInt(myScale(d))})
+
+        var main2 = svg2_3.append('g')
+            .attr('transform', 'translate(' + 30 + ',' + 0 + ')')
 
         //console.log(avg_data)
     });

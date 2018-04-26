@@ -135,6 +135,7 @@ thead > tr, tbody{
 #myInput {
   background-image: url('/css/searchicon.png');
   background-position: 10px 10px;
+  background-size: 28px;
   background-repeat: no-repeat;
   width: 100%;
   font-size: 16px;
@@ -145,7 +146,7 @@ thead > tr, tbody{
 
 #myTable {
   border-collapse: collapse;
-  width: 100%;
+/*  width: 100%;*/
   border: 1px solid #ddd;
   font-size: 18px;
 }
@@ -158,8 +159,13 @@ thead > tr, tbody{
   overflow-y: auto;
   width: 100%;
 }
+.table-fixed th {
+  height: 40px;
+  width: 25%;
+}
 .table-fixed td {
   height: 40px;
+  width: 25%;
 }
 .table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
   display: block;
