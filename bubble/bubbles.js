@@ -220,7 +220,7 @@ var padding = 4;
       trigger: 'manual',
       html: true,
       content: function() {
-        return "Recipient ID: " + d.objectName + "</br>Risk After 90 days: " + d.riskCategory1 + "</br>Risk After 180 days: " + d.riskCategory2;
+        return "Recipient ID: " + d.objectName + "</br>Success Ratio After 90 days: " + d.riskCategory1 + "</br>Success Ratio After 180 days: " + d.riskCategory2;
       }
     });
     $(this).popover('show');

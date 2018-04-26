@@ -105,7 +105,7 @@ var ramp = d3.scaleLinear()
 svg2_3.append("text")
       .attr('id', 'rank')
       .attr("y", 0)
-      .attr("x",(420))
+      .attr("x",(500))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
       .text("(%)");
