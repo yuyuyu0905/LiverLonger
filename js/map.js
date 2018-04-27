@@ -105,10 +105,10 @@ var ramp = d3.scaleLinear()
 svg2_3.append("text")
       .attr('id', 'rank')
       .attr("y", 0)
-      .attr("x",(500))
+      .attr("x",(550))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("(%)");
+      .text("Successful Rate(%)");
 var path = d3.geoPath()
     .projection(projection);
 
@@ -227,7 +227,7 @@ d3.json("data/usa2.json", function(error, world) {
                           .domain([0, 10])
                           .range([min_value, max_value]);
                 var rateOrwait = 'Successful Rate: '
-                d3.select('#rank').transition().text('(%)')
+                d3.select('#rank').transition().text('Successful Rate(%)')
         	}
             legend2.selectAll('text')
                 .text(function(d){return parseInt(myScale(d)).toLocaleString()});
