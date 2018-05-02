@@ -243,8 +243,10 @@ d3.json("data/usa2.json", function(error, world) {
                         d['color'] = ramp(res);
                         return 'black'
                     })
-                    .style('fill', function(d) {return d['color']})
-                    .on("click touchstart", function(d) {
+                    .style('fill', function(d) {
+                        console.log(d['color'])
+                        return d['color']})
+                    .on("click", function(d) {
                         for (i = 0; i < avg_data.length; i++) {
                             d3.select('#' + avg_data[i]['key'])
                                 .style('fill', function(d) { return d['color'] })
@@ -280,7 +282,6 @@ d3.json("data/usa2.json", function(error, world) {
                         d3.selectAll('.' + d3.select(this).attr('class'))
                             .style('stroke-width', '1px')
                     })
-                    .style('fill', 'rgb(' + (res-100) + ',' + res + ', ' + res + ')')
 
             }
         }
