@@ -1,5 +1,4 @@
-# LiverLonger
-# Mannual of usage
+# Manual of usage
 ## What's this project?
 We offers the best system to match liver with recipients and to predict the success rate of liver transplantation surgery. 
 ## What're the results?
